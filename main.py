@@ -1,4 +1,6 @@
-﻿questions = {}
+﻿import random
+
+questions = {}
 
 with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
     for line in f:
@@ -13,4 +15,13 @@ with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
             continue
 
 for key, value in questions.items():
+    random.shuffle(value)
+
+    letter = 68
+    i = len(value) - 1
+    while i >= 0:
+        value[i] = chr(letter) + value[i][1:]
+
+        i -= 1
+        letter -= 1
     print(f"Key: {key}\nValue: {value}")
