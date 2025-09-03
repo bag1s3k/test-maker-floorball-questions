@@ -1,4 +1,5 @@
 ﻿import random
+from termcolor import colored
 
 questions = {}
 
@@ -47,9 +48,25 @@ items = list(questions.items())
 random.shuffle(items)
 questions = dict(items)
 
-i = 1
+i, correct = 1, 0
+wrong = {}
 for key, value in questions.items():
     key = str(i) + key[2:]
 
     i += 1
-    print(f"Key: {key}\nValue: {value}")
+    print("\n" + key + "\n")
+    for answer in value["options"]:
+        print(answer)
+
+    guess = input("> ").lower()
+
+    if guess == "stop": break
+    elif ord(guess) - 97 == value["answer"]: correct += 1
+    else: wrong[key] = value
+
+print(f"Score: {correct}/100")
+
+for key, value in wrong.items():
+    print(f"\n{key}\n")
+    for answer in value["options"]:
+        print(answer + "\n")
