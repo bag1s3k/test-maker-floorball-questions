@@ -1,5 +1,5 @@
 ﻿import random
-from termcolor import colored
+from termcolor import cprint
 
 questions = {}
 
@@ -62,11 +62,14 @@ for key, value in questions.items():
 
     if guess == "stop": break
     elif ord(guess) - 97 == value["answer"]: correct += 1
-    else: wrong[key] = value
+    else: wrong[key] = {
+        "right": value["options"][value["answer"]],
+        "wrong": value["options"][ord(guess) - 97]
+    }
 
 print(f"Score: {correct}/100")
 
 for key, value in wrong.items():
     print(f"\n{key}\n")
-    for answer in value["options"]:
-        print(answer + "\n")
+    cprint(value["right"], "green", attrs=["bold"])
+    cprint(value["wrong"], "red", attrs=["bold"])
