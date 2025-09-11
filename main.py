@@ -24,6 +24,10 @@ for question in questions:
 
     question["options"] = [chr(i + 65) + option[1:] for i, option in enumerate(question["options"])]
 
+random.shuffle(questions)
+for i, question in enumerate(questions):
+    question["question"] = f"{str(i + 1)}) {re.sub(r"^\d+\)\s*", "", question["question"])}"
+
 wrong, correct = {}, 0
 for question in questions:
     print("\n" + question["question"])
