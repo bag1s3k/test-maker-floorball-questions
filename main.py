@@ -21,6 +21,6 @@ for question in questions:
         if option.startswith("A"): question["correct"] = i
         i += 1
 
-    question["options"] = [(lambda y: chr(question["options"].index(option) + 65) + option[1:])(option) for option in question["options"]]
+    question["options"] = [chr(i + 65) + option[1:] for i, option in enumerate(question["options"])]
 
 for question in questions: print(question)
