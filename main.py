@@ -13,6 +13,12 @@ with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
 
         if answer: questions[i].setdefault("options", []).append(answer.group()) # check if it's not None
 
-for question in questions: random.shuffle(question["options"])
+for question in questions:
+    random.shuffle(question["options"])
+
+    i = 0
+    for option in question["options"]:
+        if option.startswith("A"): question["correct"] = i
+        i += 1
 
 for question in questions: print(question)
