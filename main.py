@@ -1,4 +1,5 @@
-﻿import re
+﻿import random
+import re
 
 questions = []
 
@@ -12,4 +13,6 @@ with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
 
         if answer: questions[i].setdefault("options", []).append(answer.group()) # check if it's not None
 
-for question in questions: print(question) 
+for question in questions: random.shuffle(question["options"])
+
+for question in questions: print(question)
