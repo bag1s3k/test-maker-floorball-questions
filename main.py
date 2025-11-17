@@ -60,8 +60,8 @@ for question in questions:
     if not end:
         break
 
-print(f"Score: {correct}/100")
-
+# PROGRAM OUTPUT
+print(f"=============== Score: {len([v for v in output.values() if v["wrong"] == ""])}/{len(output)} ===============")
 for key, value in output.items():
     print(f"\n{key}\n")
     cprint(value["right"], "green", attrs=["bold"])
