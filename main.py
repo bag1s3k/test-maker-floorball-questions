@@ -61,7 +61,7 @@ for question in questions:
         break
 
 # PROGRAM OUTPUT
-print(f"=============== Score: {len([v for v in output.values() if v["wrong"] == ""])}/{len(output)} ===============")
+print(f"\n=============== Score: {len([v for v in output.values() if v["wrong"] == ""])}/{len(output)} ===============")
 for key, value in output.items():
     print(f"\n{key}\n")
     cprint(value["right"], "green", attrs=["bold"])
