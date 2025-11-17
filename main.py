@@ -4,17 +4,16 @@ from termcolor import cprint
 
 questions = []
 
+# FIND QUESTIONS AND THEIR POSSIBLE ANSWERS
 with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
     i = -1
     for line in f:
-        question = re.search(r"^\d.*[:?]$", line) # load question
-        if question:
+        if question := re.search(r"^\d.*[:?]$", line):
             questions.append( {"question": question.group()} )
             i += 1
+            continue
 
-        answer = re.search(r"^[A-D][)].*[.]$", line) # load answer
-
-        if answer:
+        if answer := re.search(r"^[A-D][)].*[.]$", line):
             questions[i].setdefault("options", []).append(answer.group())
 
 for question in questions:
