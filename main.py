@@ -31,28 +31,38 @@ random.shuffle(questions)
 for i, question in enumerate(questions): # replace current question number with the correct one
     question["question"] = f"{str(i + 1)}) {re.sub(r"^\d+\)\s*", "", question["question"])}"
 
-wrong, correct = {}, 0
+# USER INPUT
+output, end = {}, True
 for question in questions:
     print("\n" + question["question"])
 
     for option in question["options"]:
         print(option)
+    while end:
+        guess = input("> ").upper().strip()
 
-    guess = input("> ").upper().strip()
-
-    if guess == "STOP":
+        if guess in ["STOP", "EXIT"]:
+            end = False
+        elif guess == question["correct"]:
+            output[question["question"]] = {
+                "right": question["options"][ord(question["correct"]) - 65],
+                "wrong": ""
+            }
+            break
+        elif guess in ["A", "B", "C", "D"]:
+            output[question["question"]] = {
+                "right": question["options"][ord(question["correct"]) - 65],
+                "wrong": question["options"][ord(guess) - 65]
+            }
+            break
+        else:
+            print(f"Invalid command '{guess}'")
+    if not end:
         break
-    elif guess == question["correct"]:
-        correct += 1
-    else:
-        wrong[question["question"]] = {
-            "right": question["options"][ord(question["correct"]) - 65],
-            "wrong": question["options"][ord(guess) - 65]
-        }
 
 print(f"Score: {correct}/100")
 
-for key, value in wrong.items():
+for key, value in output.items():
     print(f"\n{key}\n")
     cprint(value["right"], "green", attrs=["bold"])
     cprint(value["wrong"], "red", attrs=["bold"])
