@@ -16,19 +16,19 @@ with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
         if answer := re.search(r"^[A-D][)].*[.]$", line):
             questions[i].setdefault("options", []).append(answer.group())
 
+# SHUFFLE QUESTIONS AND THEIR ANSWERS
 for question in questions:
-    random.shuffle(question["options"])
+    random.shuffle(question["options"]) # shuffle answers
 
-    i = 0
-    for option in question["options"]:
+    for i, option in enumerate(question["options"]):
         if option.startswith("A"):
-            question["correct"] = chr(i + 65)
-        i += 1
+            question["correct"] = chr(i + 65) # save correct answer
 
+    # replace current letter with the correct one
     question["options"] = [chr(i + 65) + option[1:] for i, option in enumerate(question["options"])]
 
 random.shuffle(questions)
-for i, question in enumerate(questions):
+for i, question in enumerate(questions): # replace current question number with the correct one
     question["question"] = f"{str(i + 1)}) {re.sub(r"^\d+\)\s*", "", question["question"])}"
 
 wrong, correct = {}, 0
