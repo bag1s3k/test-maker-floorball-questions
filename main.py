@@ -13,7 +13,7 @@ with open("zasobnik_otazek.txt", "r", encoding="utf-8") as f:
             i += 1
             continue
 
-        if answer := re.search(r"^[A-D][)].*[.]$", line):
+        if answer := re.search(r"^[A-D][)].*$", line):
             questions[i].setdefault("options", []).append(answer.group())
 
 # SHUFFLE QUESTIONS AND THEIR ANSWERS
